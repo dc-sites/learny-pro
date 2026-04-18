@@ -4,8 +4,8 @@
   "description": "Stay focused & keep learning ✨",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0f0f1a",
-  "theme_color": "#6c2bd9",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "orientation": "any",
   "icons": [
     {
