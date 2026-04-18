@@ -755,3 +755,19 @@ const APP = {
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
 document.addEventListener('DOMContentLoaded', () => APP.init());
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show your custom install button in UI
+  document.getElementById('install-btn')?.classList.remove('hidden');
+});
+
+document.getElementById('install-btn')?.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') console.log('User accepted install');
+    deferredPrompt = null;
+  }
+});
