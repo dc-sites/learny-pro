@@ -8,7 +8,7 @@ profile: {
 name: 'User',
 avatar: 'https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png',
 gender: '', age: null,
-subtext: "Let's start learning 🎯 "
+subtext: "Let's start learning 🎯"
 },
 quotes: [
 { en: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", si: "ඔවුන්ගේ සිහිනවල රූපලාවණ්‍යය විශ්වාස කරන්නන්ට අනාගතය හිමිවේ." },
@@ -42,7 +42,7 @@ const s = JSON.parse(saved);
 this.timeLeft = s.timeLeft; this.endTime = s.endTime; this.isRunning = s.isRunning;
 this.mode = s.mode; this.sessions = s.sessions || 0;
 } else {
-this.timeLeft = (APP.data.pomoSettings?.work || 25) * 60; 
+this.timeLeft = (APP.data.pomoSettings?.work || 25) * 60;
 }
 },
 saveState() {
@@ -149,7 +149,7 @@ this.mode = 'work'; this.timeLeft = (APP.data.pomoSettings?.work || 25) * 60;
 }
 document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === this.mode));
 document.getElementById('session-count-display').textContent = this.sessions;
-this.saveState(); this.updateDisplay(); 
+this.saveState(); this.updateDisplay();
 },
 toggleFullscreen(on) {
 const el = document.querySelector('.pomodoro-main');
@@ -162,7 +162,7 @@ const list = document.getElementById('pomo-sessions-list');
 if (!list) return;
 const recent = (APP.data.pomodoroSessions || []).slice(-10).reverse();
 list.innerHTML = recent.length ? recent.map(s =>
-`<div class="session-item"><span><i class="fa fa-check-circle" style="color:var(--success)"></i> ${s.mode === 'work' ? 'Focus' : 'Break'} Session</span><span class="sess-time">${new Date(s.date).toLocaleString()} • ${s.duration}m</span></div>` 
+`<div class="session-item"><span><i class="fa fa-check-circle" style="color:var(--success)"></i> ${s.mode === 'work' ? 'Focus' : 'Break'} Session</span><span class="sess-time">${new Date(s.date).toLocaleString()} • ${s.duration}m</span></div>`
 ).join('') : '<p class="text-center text-muted mt-2">No sessions yet</p>';
 },
 exportPDF() {
@@ -177,7 +177,7 @@ doc.setFontSize(12); doc.setTextColor(100, 100, 100);
 const totalFocus = sessions.filter(s => s.mode === 'work').length;
 doc.text(`Generated: ${new Date().toLocaleDateString()} | Total Focus Sessions: ${totalFocus}`, 14, 32);
 const tableData = sessions.slice(-20).reverse().map((s, i) => [
-sessions.length - i, new Date(s.date).toLocaleString(), s.mode === 'work' ? 'Focus' : 'Break', 
+sessions.length - i, new Date(s.date).toLocaleString(), s.mode === 'work' ? 'Focus' : 'Break',
 `${s.duration} min`
 ]);
 doc.autoTable({
@@ -206,16 +206,13 @@ const greetingFull = document.getElementById('greeting-full');
 const greetingSub = document.getElementById('greeting-sub');
 const dashAvatar = document.getElementById('dashboard-avatar');
 const sidebarName = document.getElementById('sidebar-username');
-
 if (greetingFull) greetingFull.textContent = `${greeting}, ${userName.charAt(0).toUpperCase() + userName.slice(1)}`;
 if (greetingSub) greetingSub.textContent = subtext;
 if (dashAvatar) dashAvatar.src = avatar;
 if (sidebarName) sidebarName.textContent = `Welcome, ${userName}!`;
-
 const previewGreeting = document.getElementById('preview-greeting');
 const previewSubtext = document.getElementById('preview-subtext');
 const previewAvatar = document.getElementById('preview-avatar');
-
 if (previewGreeting) previewGreeting.textContent = `${greeting}, ${userName.charAt(0).toUpperCase() + userName.slice(1)}`;
 if (previewSubtext) previewSubtext.textContent = subtext;
 if (previewAvatar) previewAvatar.src = avatar;
@@ -226,24 +223,21 @@ const nameInput = document.getElementById('profile-name');
 const subtextInput = document.getElementById('profile-subtext');
 const genderInput = document.getElementById('profile-gender');
 const ageInput = document.getElementById('profile-age');
-
 if (nameInput && profile.name) nameInput.value = profile.name;
 if (subtextInput && profile.subtext) subtextInput.value = profile.subtext;
 if (genderInput && profile.gender) genderInput.value = profile.gender;
 if (ageInput && profile.age) ageInput.value = profile.age;
-
 if (subtextInput) {
 const counter = document.createElement('small');
 counter.className = 'char-counter';
-counter.textContent = ` ${subtextInput.value.length}/30`;
+counter.textContent = `${subtextInput.value.length}/30`;
 subtextInput.parentNode.appendChild(counter);
 subtextInput.addEventListener('input', (e) => {
 counter.textContent = `${e.target.value.length}/30`;
 const previewSub = document.getElementById('preview-subtext');
-if (previewSub) previewSub.textContent = e.target.value || "Let's start learning 🎯 ";
+if (previewSub) previewSub.textContent = e.target.value || "Let's start learning 🎯";
 });
 }
-
 document.querySelectorAll('.avatar-option').forEach(option => {
 if (profile.avatar && option.dataset.avatar === profile.avatar) option.classList.add('selected');
 option.addEventListener('click', () => {
@@ -252,7 +246,6 @@ option.classList.add('selected');
 this.updateGreetingUI();
 });
 });
-
 if (nameInput) {
 nameInput.addEventListener('input', (e) => {
 const previewGreeting = document.getElementById('preview-greeting');
@@ -260,23 +253,21 @@ const sidebarName = document.getElementById('sidebar-username');
 const val = e.target.value.trim() || 'User';
 if (previewGreeting) {
 const greeting = this.getGreeting();
-previewGreeting.textContent = `${greeting}, ${val.charAt(0).toUpperCase() + val.slice(1)} `;
+previewGreeting.textContent = `${greeting}, ${val.charAt(0).toUpperCase() + val.slice(1)}`;
 }
 if (sidebarName) sidebarName.textContent = `Welcome, ${val}!`;
 });
 }
-
 document.getElementById('profile-form')?.addEventListener('submit', (e) => {
 e.preventDefault();
 const selectedAvatar = document.querySelector('.avatar-option.selected');
-const subtextVal = document.getElementById('profile-subtext')?.value.trim(); 
-
+const subtextVal = document.getElementById('profile-subtext')?.value.trim();
 this.data.profile = {
 name: document.getElementById('profile-name').value.trim() || 'User',
 avatar: selectedAvatar ? selectedAvatar.dataset.avatar : 'https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png',
 gender: document.getElementById('profile-gender').value,
 age: parseInt(document.getElementById('profile-age').value) || null,
-subtext: subtextVal ? subtextVal.slice(0, 30) : "Let's start learning 🎯 "
+subtext: subtextVal ? subtextVal.slice(0, 30) : "Let's start learning 🎯"
 };
 this.save();
 this.updateGreetingUI();
@@ -308,12 +299,12 @@ load() {
 const saved = localStorage.getItem('learny_data');
 if (saved) {
 const parsed = JSON.parse(saved);
-if (!parsed.profile) parsed.profile = { name: 'User', avatar: 'https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png', gender: '', age: null, subtext: "Let's start learning 🎯 " };
-if (!parsed.profile.subtext) parsed.profile.subtext = "Let's start learning 🎯 ";
+if (!parsed.profile) parsed.profile = { name: 'User', avatar: 'https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png', gender: '', age: null, subtext: "Let's start learning 🎯" };
+if (!parsed.profile.subtext) parsed.profile.subtext = "Let's start learning 🎯";
 if (!parsed.profile.avatar) parsed.profile.avatar = 'https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png';
 Object.assign(this.data, parsed);
 } else {
-this.data.profile = { name: 'User', avatar: 'https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png', gender: '', age: null, subtext: "Let's start learning 🎯 " };
+this.data.profile = { name: 'User', avatar: 'https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png', gender: '', age: null, subtext: "Let's start learning 🎯" };
 }
 },
 save() { localStorage.setItem('learny_data', JSON.stringify(this.data)); },
@@ -429,7 +420,7 @@ const card = btn.closest('.quote-card');
 const sinhalaEl = card.querySelector('.quote-sinhala');
 sinhalaEl.classList.toggle('show');
 const isShowing = sinhalaEl.classList.contains('show');
-btn.innerHTML = isShowing ? ' Hide Translation' : ' Translate to Sinhala';
+btn.innerHTML = isShowing ? 'Hide Translation' : 'Translate to Sinhala';
 });
 });
 },
@@ -457,9 +448,10 @@ document.getElementById('total-days').textContent = this.data.timeLogs.length;
 document.getElementById('avg-hours').textContent = (this.getTotalStudy() / (this.data.timeLogs.length || 1)).toFixed(1);
 document.getElementById('total-done').textContent = this.data.tasks.filter(t => t.done).length;
 document.getElementById('achievement-count').textContent = (this.data.achievements.badges || []).length;
-document.getElementById('today-tasks-list').innerHTML = tasks.length ? tasks.map(t =>
-`<div class="task-item ${t.done ? 'done' : ''}"><div class="task-check ${t.done ? 'checked' : ''}" onclick="APP.toggleTask('${t.id}')"><i class="fa fa-check"></i></div><span class="task-text">${t.text}</span><span class="task-time"><i class="fa fa-clock"></i> ${t.time}</span></div>` 
-).join('') : '<p class="text-center text-muted mt-2">No tasks today</p>';
+document.getElementById('today-tasks-list').innerHTML = tasks.length ? tasks.map(t => {
+    const timeDisplay = t.endTime ? `${t.startTime} - ${t.endTime}` : (t.startTime || t.time || '');
+    return `<div class="task-item ${t.done ? 'done' : ''}"><div class="task-check ${t.done ? 'checked' : ''}" onclick="APP.toggleTask('${t.id}')"><i class="fa fa-check"></i></div><span class="task-text">${t.text}</span>${timeDisplay ? `<span class="task-time"><i class="fa fa-clock"></i> ${timeDisplay}</span>` : ''}</div>`;
+}).join('') : '<p class="text-center text-muted mt-2">No tasks today</p>';
 const daysToFetch = window.innerWidth <= 768 ? 7 : 10;
 const logs = [];
 for (let i = daysToFetch - 1; i >= 0; i--) {
@@ -490,34 +482,43 @@ this.selectedTaskDate = e.target.value;
 this.renderTasks();
 });
 }
-
 this.renderTasks();
 document.getElementById('task-form')?.addEventListener('submit', e => {
-e.preventDefault();
-const dayTasks = this.data.tasks.filter(t => t.date === this.selectedTaskDate);
-if (dayTasks.length >= 10) return this.showToast('Max 10 tasks allowed per day');
-const t = { id: Date.now().toString(), text: document.getElementById('task-input').value.trim(), time: document.getElementById('task-time-input').value, date: this.selectedTaskDate, done: false };
-this.data.tasks.push(t); this.save(); this.renderTasks();
-document.getElementById('task-input').value = '';
+    e.preventDefault();
+    const dayTasks = this.data.tasks.filter(t => t.date === this.selectedTaskDate);
+    if (dayTasks.length >= 10) return this.showToast('Max 10 tasks allowed per day');
+    
+    const startTime = document.getElementById('task-time-input').value;
+    const endTime = document.getElementById('task-endtime-input')?.value || '';
+    
+    const t = {
+        id: Date.now().toString(),
+        text: document.getElementById('task-input').value.trim(),
+        startTime: startTime,
+        endTime: endTime,
+        date: this.selectedTaskDate,
+        done: false
+    };
+    this.data.tasks.push(t); this.save(); this.renderTasks();
+    document.getElementById('task-input').value = '';
+    if(document.getElementById('task-endtime-input')) document.getElementById('task-endtime-input').value = '';
 });
 },
 renderTasks() {
 const dayTasks = this.data.tasks.filter(t => t.date === this.selectedTaskDate);
 const dayDone = dayTasks.filter(t => t.done).length;
-
 document.getElementById('task-count').textContent = dayTasks.length;
 document.getElementById('pending-count').textContent = dayTasks.length - dayDone;
 document.getElementById('done-count').textContent = dayDone;
-
 const allTasks = this.data.tasks;
 const allDone = allTasks.filter(t => t.done).length;
 const totalRate = allTasks.length ? Math.round((allDone / allTasks.length) * 100) : 0;
 document.getElementById('completion-rate').textContent = totalRate + '%';
 document.getElementById('progress-bar').style.width = totalRate + '%';
-
-document.getElementById('tasks-list').innerHTML = dayTasks.length ? dayTasks.map(t =>
-`<div class="task-item ${t.done ? 'done' : ''}"><div class="task-check ${t.done ? 'checked' : ''}" onclick="APP.toggleTask('${t.id}')"><i class="fa fa-check"></i></div><span class="task-text" onclick="APP.editTask('${t.id}')" style="cursor:pointer;">${t.text}</span><span class="task-time"><i class="fa fa-clock"></i> ${t.time}</span><button class="task-delete" onclick="APP.deleteTask('${t.id}')"><i class="fa fa-trash"></i></button></div>`
-).join('') : '<p class="text-center text-muted mt-2">No tasks for this date</p>';
+document.getElementById('tasks-list').innerHTML = dayTasks.length ? dayTasks.map(t => {
+    const timeDisplay = t.endTime ? `${t.startTime} - ${t.endTime}` : (t.startTime || t.time || '');
+    return `<div class="task-item ${t.done ? 'done' : ''}"><div class="task-check ${t.done ? 'checked' : ''}" onclick="APP.toggleTask('${t.id}')"><i class="fa fa-check"></i></div><span class="task-text" onclick="APP.editTask('${t.id}')" style="cursor:pointer;">${t.text}</span>${timeDisplay ? `<span class="task-time"><i class="fa fa-clock"></i> ${timeDisplay}</span>` : ''}<button class="task-delete" onclick="APP.deleteTask('${t.id}')"><i class="fa fa-trash"></i></button></div>`;
+}).join('') : '<p class="text-center text-muted mt-2">No tasks for this date</p>';
 },
 toggleTask(id) {
 const t = this.data.tasks.find(x => x.id === id);
@@ -619,9 +620,9 @@ saveName(n) {
 this.assistantUser = n;
 this.showAssistant(`Hi ${n}! Ready to crush your goals?`, [{ t: 'Study Timetable', a: () => this.timetable() }, { t: 'Subject Tips', a: () => this.subjectTips() }]);
 },
-askMain() { this.showAssistant("I can help you. Pick a topic: ", [{ t: 'Timetable', a: () => this.timetable() }, { t: 'Tips', a: () => this.subjectTips() }]); },
-timetable() { this.showAssistant("Try: 6-8AM Review | 10-12 Practice | 3-5 Learn New | 8-9 Review. ", [{ t: 'Sounds good', a: () => this.askMain() }, { t: 'Too early', a: () => this.showAssistant("Shift it to your peak hours. Consistency > Timing. ", [{ t: 'Got it', a: () => this.askMain() }]) }]); },
-subjectTips() { this.showAssistant("Pick a subject: ", [{ t: 'Math', a: () => this.showAssistant("Daily practice. Focus on weak areas first. ", [{ t: 'Back', a: () => this.subjectTips() }]) }, { t: 'Science', a: () => this.showAssistant("Understand concepts, then apply. ", [{ t: 'Back', a: () => this.subjectTips() }]) }]); },
+askMain() { this.showAssistant("I can help you. Pick a topic:", [{ t: 'Timetable', a: () => this.timetable() }, { t: 'Tips', a: () => this.subjectTips() }]); },
+timetable() { this.showAssistant("Try: 6-8AM Review | 10-12 Practice | 3-5 Learn New | 8-9 Review.", [{ t: 'Sounds good', a: () => this.askMain() }, { t: 'Too early', a: () => this.showAssistant("Shift it to your peak hours. Consistency > Timing.", [{ t: 'Got it', a: () => this.askMain() }]) }]); },
+subjectTips() { this.showAssistant("Pick a subject:", [{ t: 'Math', a: () => this.showAssistant("Daily practice. Focus on weak areas first.", [{ t: 'Back', a: () => this.subjectTips() }]) }, { t: 'Science', a: () => this.showAssistant("Understand concepts, then apply.", [{ t: 'Back', a: () => this.subjectTips() }]) }]); },
 showAssistant(txt, opts) {
 const c = document.getElementById('chat-messages'); if (!c) return;
 const m = document.createElement('div'); m.className = 'message bot'; m.innerHTML = txt.replace(/\n/g, '<br>'); c.appendChild(m);
@@ -710,7 +711,7 @@ const hours = Math.max(0, diff * 24);
 const mins = Math.max(0, diff * 24 * 60);
 const item = document.createElement('div');
 item.className = `countdown-item ${isPast ? 'expired' : ''}`;
-item.innerHTML = `<div class="countdown-header"> <h3 class="countdown-title">${c.name}</h3> <div class="countdown-actions"> <button class="btn btn-sm btn-secondary share-btn" data-id="${c.id}"><i class="fa fa-share-alt"></i> Share</button> <button class="btn btn-sm btn-danger delete-btn" data-id="${c.id}"><i class="fa fa-trash"></i></button> </div> </div> <div class="countdown-grid"> <div class="countdown-box"><div class="countdown-value">${isPast ? 0 : diff}</div><div class="countdown-label">Days</div></div> <div class="countdown-box"><div class="countdown-value">${weeks}</div><div class="countdown-label">Weeks</div></div> <div class="countdown-box"><div class="countdown-value">${hours}</div><div class="countdown-label">Hours</div></div> <div class="countdown-box"><div class="countdown-value">${mins}</div><div class="countdown-label">Minutes</div></div> </div> <div class="countdown-date">Target: ${new Date(c.date).toLocaleDateString()}</div>`;
+item.innerHTML = `<div class="countdown-header"><h3 class="countdown-title">${c.name}</h3><div class="countdown-actions"><button class="btn btn-sm btn-secondary share-btn" data-id="${c.id}"><i class="fa fa-share-alt"></i> Share</button><button class="btn btn-sm btn-danger delete-btn" data-id="${c.id}"><i class="fa fa-trash"></i></button></div></div><div class="countdown-grid"><div class="countdown-box"><div class="countdown-value">${isPast ? 0 : diff}</div><div class="countdown-label">Days</div></div><div class="countdown-box"><div class="countdown-value">${weeks}</div><div class="countdown-label">Weeks</div></div><div class="countdown-box"><div class="countdown-value">${hours}</div><div class="countdown-label">Hours</div></div><div class="countdown-box"><div class="countdown-value">${mins}</div><div class="countdown-label">Minutes</div></div></div><div class="countdown-date">Target: ${new Date(c.date).toLocaleDateString()}</div>`;
 list.appendChild(item);
 });
 document.querySelectorAll('.share-btn').forEach(btn => { btn.onclick = () => this.shareCountdown(btn.dataset.id); });
@@ -748,7 +749,7 @@ document.getElementById('delete-all')?.addEventListener('click', () => { if (con
 },
 initRate() {
 let r = 0;
-document.querySelectorAll('.star-btn').forEach((s,i) => s.onclick = () => { r = i+1; document.querySelectorAll('.star-btn').forEach((st,j) => st.classList.toggle('active', j < r)); });
+document.querySelectorAll('.star-btn').forEach((s ,i) => s.onclick = () => { r = i+1; document.querySelectorAll('.star-btn').forEach((st,j) => st.classList.toggle('active', j < r)); });
 document.getElementById('feedback-form')?.addEventListener('submit', e => {
 e.preventDefault();
 const all = JSON.parse(localStorage.getItem('learny_feedbacks') || '[]');
