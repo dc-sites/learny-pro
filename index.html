@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#6c2bd9">
@@ -13,6 +14,50 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+ <style>
+        /* 1. MODAL Z-INDEX FIX (Place above sidebar & overlay) */
+        .overlay { z-index: 9999 !important; }
+        .modal { z-index: 10001 !important; }
+        #premium-success { z-index: 10002 !important; }
+
+        /* 2. MOBILE TAP & AUTO-SELECT FIX */
+        * { -webkit-tap-highlight-color: transparent; outline: none; }
+        button, .btn, a, .nav-item a, .task-check, .task-delete, .theme-toggle, .tuition-btn, .mode-btn, .faq-question, .star-btn, .theme-option, .countdown-actions button, .player-btn, .playlist-item, .avatar-option, .cal-day, .translate-btn, .chat-option-btn {
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -webkit-touch-callout: none !important;
+            touch-action: manipulation !important;
+            cursor: pointer !important;
+        }
+        input, textarea, select { user-select: text !important; -webkit-user-select: text !important; touch-action: auto !important; }
+
+        /* 3. SPACE BETWEEN QUICK STATS & QUICK TIPS */
+        .stats-wrapper { margin-bottom: 24px; }
+        .tips-wrapper { margin-top: 24px; }
+        @media (max-width: 768px) { .stats-wrapper, .tips-wrapper { margin-bottom: 16px; margin-top: 16px; } }
+
+        /* Tuition Dashboard Integration (Preserved) */
+        .tuition-list { max-height: 280px; overflow-y: auto; padding-right: 4px; }
+        .tuition-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-dark); border-radius: var(--radius-sm); margin-bottom: 8px; border: 1px solid var(--border); transition: all var(--transition); position: relative; }
+        .tuition-item:hover { border-color: var(--primary); transform: translateX(4px); }
+        .tuition-item.ongoing { border-color: var(--success); background: rgba(16, 185, 129, 0.08); }
+        .tuition-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); flex-shrink: 0; }
+        .tuition-item.ongoing .tuition-avatar { border-color: var(--success); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+        .tuition-info { flex: 1; min-width: 0; }
+        .tuition-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+        .tuition-name { font-weight: 600; font-size: 14px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+        .ongoing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); display: none; animation: pulse-dot 1.5s infinite; flex-shrink: 0; }
+        .tuition-item.ongoing .ongoing-dot { display: inline-block; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.2); } }
+        .tuition-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; }
+        .tuition-day { font-weight: 600; color: var(--primary-light); background: rgba(108, 43, 217, 0.15); padding: 2px 8px; border-radius: 4px; }
+        .tuition-time { display: flex; align-items: center; gap: 4px; }
+        .tuition-status { font-weight: 700; font-size: 11px; padding: 3px 8px; border-radius: 10px; background: var(--bg-card-hover); }
+        .tuition-item.ongoing .tuition-status { background: var(--success); color: #fff; }
+        .view-all-tuition { text-align: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+        .view-all-tuition a { color: var(--primary-light); font-size: 12px; font-weight: 600; text-decoration: none; }
+        .view-all-tuition a:hover { text-decoration: underline; }
+    </style>
 <body>
     <div class="app-container">
         <!-- Sidebar -->
