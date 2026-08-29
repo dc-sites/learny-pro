@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://pl29826934.effectivecpmnetwork.com/41/60/e6/4160e6a58f8f5e302f9e07a40f056795.js"></script>
+
+    <script src="https://pl29825315.effectivecpmnetwork.com/e1/97/36/e1973631618ee1e0e3c1f353338d0d9a.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learny - Translator</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">L</div>
+      <div class="sidebar-title">Learny</div>
+    </div>
+    <ul class="nav-list">
+      <li class="nav-item"><a href="index.html"><i class="fa fa-home"></i> Dashboard</a></li>
+      <li class="nav-item"><a href="profile.html"><i class="fa fa-user"></i> Profile</a></li>
+      <li class="nav-item"><a href="bot.html"><i class="fa fa-robot"></i> LearnyAI</a></li>
+      
+      <li class="nav-item"><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a></li>
+      <li class="nav-item"><a href="time.html"><i class="fa fa-clock"></i> Time Tracker</a></li>
+      <li class="nav-item active"><a href="translator.html"><i class="fa fa-language"></i> Translator <span class="new-badge">NEW</span></a></li>
+      <li class="nav-item"><a href="calculator.html"><i class="fa fa-calculator"></i> Calculator<span class="new-badge">NEW</span></a></li>
+      <li class="nav-item"><a href="converter.html"><i class="fa fa-exchange-alt"></i> Converter<span class="new-badge">NEW</span></a></li>
+      <li class="nav-item"><a href="achievements.html"><i class="fa fa-trophy"></i> Achievements</a></li>
+      <li class="nav-item"><a href="tuition.html"><i class="fa fa-graduation-cap"></i> Tuition</a></li>
+      <li class="nav-item"><a href="motivation.html"><i class="fa fa-quote-left"></i> Motivation</a></li>
+      <li class="nav-item"><a href="music.html"><i class="fa fa-music"></i> Music</a></li>
+      <li class="nav-item"><a href="pomodoro.html"><i class="fa fa-hourglass-half"></i> Pomodoro</a></li>
+      <li class="nav-item"><a href="mark.html"><i class="fa fa-chart-bar"></i> Mark Analyze</a></li>
+      <li class="nav-item"><a href="countdown.html"><i class="fa fa-calendar-alt"></i> Countdown</a></li>
+      <li class="nav-item"><a href="settings.html"><i class="fa fa-cog"></i> Settings</a></li>
+ 
+    </ul>
+    <div class="sidebar-welcome">
+      <div class="divider"></div>
+      <p id="sidebar-username">Welcome, User!</p>
+    </div>
+  </aside>
+
+  <div class="overlay"></div>
+
+  <main class="main-content">
+    <div class="page-header">
+      <button class="hamburger" aria-label="Toggle Menu"><i class="fa fa-bars"></i></button>
+      <div class="page-title"><i class="fa fa-language"></i> Translator</div>
+      <div class="header-actions">
+        <button class="theme-toggle"><i class="fa fa-moon"></i></button>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="card-title"><i class="fa fa-exchange-alt"></i> Translate Text</div>
+        <select id="trans-lang" class="form-control" style="width:auto;padding:6px 30px 6px 12px;">
+          <option value="en|si">English → Sinhala</option>
+          <option value="si|en">Sinhala → English</option>
+        </select>
+      </div>
+
+      <div class="translator-layout">
+        <div class="translator-box">
+          <div class="translator-label">
+            <span id="source-lang-label">English</span>
+            <span class="translator-char-count"><span id="char-count">0</span>/5000</span>
+          </div>
+          <textarea id="trans-input" class="form-control translator-input" placeholder="Type or paste text here..." maxlength="5000"></textarea>
+          <div class="translator-actions">
+            <button class="btn btn-secondary btn-sm" id="trans-clear"><i class="fa fa-times"></i> Clear</button>
+            <button class="btn btn-secondary btn-sm" id="trans-paste"><i class="fa fa-paste"></i> Paste</button>
+            <button class="btn btn-secondary btn-sm" id="trans-speak"><i class="fa fa-volume-up"></i> Speak</button>
+          </div>
+          <button class="btn btn-primary" id="trans-translate" style="width:100%;justify-content:center;margin-top:8px;">
+            <i class="fa fa-language"></i> Translate
+          </button>
+        </div>
+
+        <button class="translator-arrow" id="trans-swap" title="Swap languages"><i class="fa fa-exchange-alt"></i></button>
+
+        <div class="translator-box">
+          <div class="translator-label">
+            <span id="target-lang-label">Sinhala</span>
+            <button class="btn btn-sm btn-secondary" id="trans-copy" style="padding:4px 10px;font-size:11px;"><i class="fa fa-copy"></i> Copy</button>
+          </div>
+          <div id="trans-result" class="translator-result">Translation will appear here...</div>
+          <div class="translator-actions">
+            <button class="btn btn-secondary btn-sm" id="trans-speak-result"><i class="fa fa-volume-up"></i> Speak</button>
+            <button class="btn btn-secondary btn-sm" id="trans-save"><i class="fa fa-bookmark"></i> Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- File Upload Section -->
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="card-title"><i class="fa fa-file-upload"></i> Extract Text from File</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="ocr-upload-zone" id="img-upload-zone">
+          <i class="fa fa-image"></i>
+          <h3>Upload Image</h3>
+          <p style="color:var(--text-muted);font-size:12px;">JPG, PNG (OCR)</p>
+          <input type="file" id="img-upload" accept="image/*" style="display:none;">
+        </div>
+        <div class="ocr-upload-zone" id="pdf-upload-zone">
+          <i class="fa fa-file-pdf" style="color:var(--danger)"></i>
+          <h3>Upload PDF</h3>
+          <p style="color:var(--text-muted);font-size:12px;">Extract text from PDF</p>
+          <input type="file" id="pdf-upload" accept="application/pdf" style="display:none;">
+        </div>
+      </div>
+
+      <div id="file-progress" class="ocr-progress" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <i class="fa fa-spinner fa-spin" style="color:var(--primary);"></i>
+            <strong id="file-progress-text" style="color:var(--text-main);font-size:14px;">Processing...</strong>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span id="file-progress-percent" style="font-weight:700;color:var(--primary-light);font-size:14px;min-width:40px;text-align:right;">0%</span>
+          </div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="file-progress-bar" style="width:0%"></div>
+        </div>
+        <p id="file-progress-status" style="margin-top:8px;font-size:12px;color:var(--text-muted);">Initializing...</p>
+      </div>
+
+      <div id="extracted-section" style="display:none;margin-top:20px;animation:fadeIn 0.3s ease;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <i class="fa fa-check-circle" style="color:var(--success);font-size:18px;"></i>
+            <strong style="color:var(--text-main);">Extracted Text</strong>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-sm btn-secondary" id="extracted-copy"><i class="fa fa-copy"></i> Copy</button>
+            <button class="btn btn-sm btn-danger" id="extracted-clear"><i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div id="extracted-text" style="background:var(--bg-dark);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;max-height:200px;overflow-y:auto;color:var(--text-main);font-size:14px;line-height:1.6;white-space:pre-wrap;word-wrap:break-word;"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:8px;">
+          <span id="extracted-source" style="font-size:12px;color:var(--text-muted);background:var(--bg-card-hover);padding:4px 10px;border-radius:10px;display:inline-flex;align-items:center;gap:6px;">
+            <i class="fa fa-file"></i> <span id="extracted-source-text">file</span>
+          </span>
+          <button class="btn btn-primary btn-sm" id="extracted-connect">
+            <i class="fa fa-link"></i> Connect to Translator
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fa fa-history"></i> Translation History</div>
+        <button class="btn btn-danger btn-sm" id="clear-history"><i class="fa fa-trash"></i> Clear All</button>
+      </div>
+      <div id="trans-history" class="translator-history">
+        <p class="empty-text">No history yet. Start translating!</p>
+      </div>
+    </div>
+  </main>
+</div>
+  <script async="async" data-cfasync="false" src="https://pl29825317.effectivecpmnetwork.com/b964dbe411f83684b0d2f580da562371/invoke.js"></script>
+<div id="container-b964dbe411f83684b0d2f580da562371"></div>
+<footer class="site-footer">
+    <p>Powered by <a href="contact.html">DC</a> | Made in Sri Lanka 🇱🇰</p>
+    <p style="margin-top: 8px; font-size: 12px;">
+        <a href="about.html">About Us</a> • 
+        <a href="privacy.html">Privacy Policy</a> • 
+        <a href="contact.html">Contact Us</a>
+    </p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="script.js"></script>
+<script>
+/* ============ TRANSLATOR MODULE ============ */
+(function() {
+  const CHUNK_SIZE = 500; // MyMemory API limit per request
+  const T = {
+    history: [],
+    lastTranslation: null,
+    extractedText: '',
+    extractedSource: '',
+    init() {
+      this.loadHistory();
+      this.bindEvents();
+      this.renderHistory();
+      this.updateLangLabels();
+    },
+    bindEvents() {
+      const input = document.getElementById('trans-input');
+      const langSel = document.getElementById('trans-lang');
+      if (input) input.addEventListener('input', () => {
+        const c = document.getElementById('char-count');
+        if (c) c.textContent = input.value.length;
+      });
+      if (langSel) langSel.addEventListener('change', () => this.updateLangLabels());
+
+      const btn = (id, fn) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('click', fn);
+      };
+
+      btn('trans-translate', () => this.translate());
+      btn('trans-clear', () => {
+        const inp = document.getElementById('trans-input');
+        const res = document.getElementById('trans-result');
+        const cc = document.getElementById('char-count');
+        if (inp) inp.value = '';
+        if (res) res.textContent = 'Translation will appear here...';
+        if (cc) cc.textContent = '0';
+      });
+      btn('trans-paste', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          const inp = document.getElementById('trans-input');
+          if (inp) { inp.value = text; const cc = document.getElementById('char-count'); if (cc) cc.textContent = text.length; }
+        } catch { APP.showToast('Paste permission denied'); }
+      });
+      btn('trans-copy', () => {
+        const res = document.getElementById('trans-result');
+        if (!res) return;
+        const text = res.textContent;
+        if (!text || text === 'Translation will appear here...') return;
+        navigator.clipboard.writeText(text).then(() => APP.showToast('Copied!'));
+      });
+      btn('trans-swap', () => {
+        const sel = document.getElementById('trans-lang');
+        if (!sel) return;
+        sel.value = sel.value === 'en|si' ? 'si|en' : 'en|si';
+        this.updateLangLabels();
+        const inp = document.getElementById('trans-input');
+        const res = document.getElementById('trans-result');
+        if (res && res.textContent && res.textContent !== 'Translation will appear here...') {
+          if (inp) { inp.value = res.textContent; const cc = document.getElementById('char-count'); if (cc) cc.textContent = inp.value.length; }
+        }
+      });
+      btn('trans-save', () => this.saveToHistory());
+      btn('trans-speak', () => { const inp = document.getElementById('trans-input'); if (inp) this.speak(inp.value, 'en'); });
+      btn('trans-speak-result', () => {
+        const res = document.getElementById('trans-result');
+        const sel = document.getElementById('trans-lang');
+        if (!res || !sel) return;
+        const lang = sel.value.split('|')[1];
+        this.speak(res.textContent, lang === 'si' ? 'si' : 'en');
+      });
+      btn('clear-history', () => {
+        if (confirm('Clear all translation history?')) {
+          this.history = []; this.saveHistory(); this.renderHistory(); APP.showToast('History cleared');
+        }
+      });
+
+      btn('extracted-connect', () => this.connectExtracted());
+      btn('extracted-copy', () => {
+        if (this.extractedText) {
+          navigator.clipboard.writeText(this.extractedText).then(() => APP.showToast('Copied!'));
+        }
+      });
+      btn('extracted-clear', () => {
+        this.extractedText = '';
+        this.extractedSource = '';
+        const sec = document.getElementById('extracted-section');
+        if (sec) sec.style.display = 'none';
+      });
+
+      const imgZone = document.getElementById('img-upload-zone');
+      const imgInput = document.getElementById('img-upload');
+      if (imgZone && imgInput) {
+        imgZone.addEventListener('click', () => imgInput.click());
+        imgInput.addEventListener('change', (e) => { if (e.target.files[0]) this.handleImage(e.target.files[0]); });
+      }
+      const pdfZone = document.getElementById('pdf-upload-zone');
+      const pdfInput = document.getElementById('pdf-upload');
+      if (pdfZone && pdfInput) {
+        pdfZone.addEventListener('click', () => pdfInput.click());
+        pdfInput.addEventListener('change', (e) => { if (e.target.files[0]) this.handlePDF(e.target.files[0]); });
+      }
+    },
+    updateLangLabels() {
+      const sel = document.getElementById('trans-lang');
+      if (!sel) return;
+      const [from, to] = sel.value.split('|');
+      const src = document.getElementById('source-lang-label');
+      const tgt = document.getElementById('target-lang-label');
+      if (src) src.textContent = from === 'en' ? 'English' : 'Sinhala';
+      if (tgt) tgt.textContent = to === 'si' ? 'Sinhala' : 'English';
+    },
+    // ✅ FIXED: Split text into chunks of 500 chars and translate each
+    async translate() {
+      const inp = document.getElementById('trans-input');
+      const res = document.getElementById('trans-result');
+      const sel = document.getElementById('trans-lang');
+      if (!inp || !res || !sel) return;
+      const text = inp.value.trim();
+      if (!text) return APP.showToast('Please enter text to translate');
+      
+      res.textContent = 'Translating...';
+      const lang = sel.value;
+      const [srcLang, tgtLang] = lang.split('|');
+      
+      try {
+        // Split text into chunks of CHUNK_SIZE (500) characters
+        const chunks = this.splitTextIntoChunks(text, CHUNK_SIZE);
+        const totalChunks = chunks.length;
+        let translatedParts = [];
+        
+        for (let i = 0; i < chunks.length; i++) {
+          // Update progress
+          if (totalChunks > 1) {
+            res.textContent = `Translating... (${i + 1}/${totalChunks} parts)`;
+          }
+          
+          const chunk = chunks[i];
+          const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=${srcLang}|${tgtLang}`;
+          const response = await fetch(url);
+          const data = await response.json();
+          
+          if (data.responseStatus === 200 && data.responseData?.translatedText) {
+            translatedParts.push(data.responseData.translatedText);
+          } else {
+            // If chunk fails, keep original text for that chunk
+            translatedParts.push(chunk);
+          }
+          
+          // Small delay to avoid rate limiting
+          if (i < chunks.length - 1) {
+            await new Promise(r => setTimeout(r, 300));
+          }
+        }
+        
+        const finalTranslation = translatedParts.join(' ');
+        res.textContent = finalTranslation;
+        this.lastTranslation = {
+          from: text,
+          to: finalTranslation,
+          lang: lang,
+          time: new Date().toISOString()
+        };
+      } catch (err) {
+        console.error('Translation error:', err);
+        res.textContent = 'Error: Could not translate. Check internet.';
+      }
+    },
+    // ✅ Split text into chunks without breaking words
+    splitTextIntoChunks(text, maxSize) {
+      if (text.length <= maxSize) return [text];
+      
+      const chunks = [];
+      let remaining = text;
+      
+      while (remaining.length > 0) {
+        if (remaining.length <= maxSize) {
+          chunks.push(remaining);
+          break;
+        }
+        
+        // Find last space or punctuation within maxSize
+        let splitPoint = maxSize;
+        const lastSpace = remaining.lastIndexOf(' ', maxSize);
+        const lastNewline = remaining.lastIndexOf('\n', maxSize);
+        const lastPeriod = remaining.lastIndexOf('.', maxSize);
+        const lastComma = remaining.lastIndexOf(',', maxSize);
+        
+        const breakPoints = [lastSpace, lastNewline, lastPeriod, lastComma].filter(p => p > maxSize * 0.5);
+        
+        if (breakPoints.length > 0) {
+          splitPoint = Math.max(...breakPoints) + 1;
+        }
+        
+        chunks.push(remaining.substring(0, splitPoint).trim());
+        remaining = remaining.substring(splitPoint).trim();
+      }
+      
+      return chunks;
+    },
+    speak(text, lang) {
+      if (!text || !('speechSynthesis' in window)) return;
+      if (text === 'Translation will appear here...') return;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = lang === 'si' ? 'si-LK' : 'en-US';
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utter);
+    },
+    saveToHistory() {
+      if (!this.lastTranslation) return APP.showToast('Nothing to save yet');
+      this.history.unshift(this.lastTranslation);
+      if (this.history.length > 50) this.history.pop();
+      this.saveHistory(); this.renderHistory(); APP.showToast('Saved to history ✓');
+    },
+    loadHistory() {
+      try { this.history = JSON.parse(localStorage.getItem('learny_trans_history') || '[]'); }
+      catch { this.history = []; }
+    },
+    saveHistory() { localStorage.setItem('learny_trans_history', JSON.stringify(this.history)); },
+    renderHistory() {
+      const el = document.getElementById('trans-history');
+      if (!el) return;
+      if (this.history.length === 0) { el.innerHTML = '<p class="empty-text">No history yet. Start translating!</p>'; return; }
+      el.innerHTML = this.history.map((h, i) => {
+        const [from, to] = h.lang.split('|');
+        const time = new Date(h.time).toLocaleString();
+        return `<div class="history-item">
+          <div class="history-header">
+            <span class="history-lang">${from.toUpperCase()} → ${to.toUpperCase()}</span>
+            <span class="history-time">${time}</span>
+          </div>
+          <div class="history-source">${this.escapeHtml(h.from)}</div>
+          <div class="history-result">${this.escapeHtml(h.to)}</div>
+          <div class="history-actions">
+            <button class="btn btn-sm btn-secondary" onclick="window._transLoad(${i})"><i class="fa fa-redo"></i> Reuse</button>
+            <button class="btn btn-sm btn-danger" onclick="window._transDelete(${i})"><i class="fa fa-trash"></i></button>
+          </div>
+        </div>`;
+      }).join('');
+    },
+    loadFromHistory(i) {
+      const h = this.history[i];
+      if (!h) return;
+      const sel = document.getElementById('trans-lang');
+      const inp = document.getElementById('trans-input');
+      const res = document.getElementById('trans-result');
+      const cc = document.getElementById('char-count');
+      if (sel) sel.value = h.lang;
+      if (inp) inp.value = h.from;
+      if (res) res.textContent = h.to;
+      if (cc) cc.textContent = h.from.length;
+      this.updateLangLabels();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    deleteHistory(i) { this.history.splice(i, 1); this.saveHistory(); this.renderHistory(); },
+    escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    },
+    showExtracted(text, source) {
+      this.extractedText = text;
+      this.extractedSource = source;
+      const sec = document.getElementById('extracted-section');
+      const textEl = document.getElementById('extracted-text');
+      const srcEl = document.getElementById('extracted-source-text');
+      if (sec) sec.style.display = 'block';
+      if (textEl) textEl.textContent = text;
+      if (srcEl) srcEl.textContent = source;
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    },
+    connectExtracted() {
+      if (!this.extractedText) return;
+      const inp = document.getElementById('trans-input');
+      const cc = document.getElementById('char-count');
+      if (inp) {
+        inp.value = this.extractedText;
+        if (cc) cc.textContent = this.extractedText.length;
+        APP.showToast('Text connected to translator ✓');
+        inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        inp.focus();
+      }
+    },
+    async handleImage(file) {
+      if (!file) return;
+      if (!window.Tesseract) return APP.showToast('OCR library still loading...');
+      this.showProgress('Extracting text from image...');
+      this.updateProgress(0, 'Initializing OCR engine...');
+      try {
+        const result = await Tesseract.recognize(file, 'eng', {
+          logger: (m) => {
+            if (m.status === 'loading tesseract core') {
+              this.updateProgress(Math.round(m.progress * 20), 'Loading OCR core...');
+            } else if (m.status === 'initializing tesseract') {
+              this.updateProgress(20 + Math.round(m.progress * 10), 'Initializing...');
+            } else if (m.status === 'loading language traineddata') {
+              this.updateProgress(30 + Math.round(m.progress * 20), 'Loading language data...');
+            } else if (m.status === 'initializing api') {
+              this.updateProgress(55, 'Preparing recognizer...');
+            } else if (m.status === 'recognizing text') {
+              const pct = 60 + Math.round(m.progress * 39);
+              this.updateProgress(pct, 'Recognizing text...');
+            }
+          }
+        });
+        this.updateProgress(100, 'Complete!');
+        const text = result.data.text.trim();
+        if (!text) {
+          APP.showToast('No text found in image');
+          setTimeout(() => this.hideProgress(), 1500);
+          return;
+        }
+        setTimeout(() => {
+          this.hideProgress();
+          this.showExtracted(text, file.name);
+          APP.showToast('✅ Text extracted successfully!');
+        }, 600);
+      } catch (e) {
+        console.error(e);
+        APP.showToast('OCR failed');
+        this.hideProgress();
+      }
+    },
+    async handlePDF(file) {
+      if (!file) return;
+      if (!window.pdfjsLib) return APP.showToast('PDF library still loading...');
+      this.showProgress('Extracting text from PDF...');
+      this.updateProgress(0, 'Loading PDF...');
+      try {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const buf = await file.arrayBuffer();
+        this.updateProgress(10, 'Reading document...');
+        const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+        let fullText = '';
+        const totalPages = pdf.numPages;
+        for (let i = 1; i <= totalPages; i++) {
+          this.updateProgress(10 + Math.round((i / totalPages) * 85), `Extracting page ${i} of ${totalPages}...`);
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          fullText += content.items.map(it => it.str).join(' ') + '\n';
+        }
+        this.updateProgress(100, 'Complete!');
+        const text = fullText.trim();
+        if (!text) {
+          APP.showToast('No text found in PDF');
+          setTimeout(() => this.hideProgress(), 1500);
+          return;
+        }
+        setTimeout(() => {
+          this.hideProgress();
+          this.showExtracted(text, file.name);
+          APP.showToast('✅ PDF text extracted successfully!');
+        }, 600);
+      } catch (e) {
+        console.error(e);
+        APP.showToast('PDF extraction failed');
+        this.hideProgress();
+      }
+    },
+    showProgress(msg) {
+      const p = document.getElementById('file-progress');
+      if (p) {
+        p.style.display = 'block';
+        const t = document.getElementById('file-progress-text');
+        if (t) t.textContent = msg;
+      }
+    },
+    updateProgress(pct, status) {
+      const bar = document.getElementById('file-progress-bar');
+      const percentEl = document.getElementById('file-progress-percent');
+      const statusEl = document.getElementById('file-progress-status');
+      if (bar) bar.style.width = pct + '%';
+      if (percentEl) percentEl.textContent = Math.round(pct) + '%';
+      if (statusEl && status) statusEl.textContent = status;
+    },
+    hideProgress() {
+      const p = document.getElementById('file-progress');
+      if (p) p.style.display = 'none';
+    }
+  };
+
+  window._transLoad = (i) => T.loadFromHistory(i);
+  window._transDelete = (i) => T.deleteHistory(i);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => T.init(), 100);
+  });
+})();
+</script>
+</body>
+</html>
