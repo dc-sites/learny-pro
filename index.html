@@ -100,24 +100,42 @@
             </div>
 
             <!-- Charts & Tasks -->
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fa fa-chart-bar"></i> Study Hours (10 Days)</h3>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="studyChart" class="chart-canvas"></canvas>
-                    </div>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa fa-chart-line"></i> Study Hours (10 Days)</h3>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                       <h2 class="card-title"><i class="fa fa-tasks"></i> Today Tasks</h2>
-                        <a href="tasks.html" class="btn btn-sm btn-secondary">Manage</a>
-                    </div>
-                    <div class="task-list" id="today-tasks-list">Loading...</div>
+                <div class="chart-container">
+                    <canvas id="studyChart" class="chart-canvas"></canvas>
                 </div>
             </div>
 
+            <!-- Tasks & Tuition Grid -->
+            <div class="grid-2">
+                <!-- Today Tasks -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fa fa-clipboard-list"></i> Today Tasks</h3>
+                        <a href="tasks.html" class="btn btn-sm btn-secondary">Manage</a>
+                    </div>
+                    <div id="today-tasks-list" class="task-list">
+                        <p class="text-muted text-center py-3">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- Tuition Classes -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fa fa-chalkboard-teacher"></i> Tuition Classes</h3>
+                        <a href="tuition.html" class="btn btn-sm btn-secondary">Manage</a>
+                    </div>
+                    <div id="tuition-dashboard-list" class="tuition-list">
+                        <p class="text-muted text-center py-3">No classes scheduled.</p>
+                    </div>
+                    <div class="view-all-tuition">
+                        <a href="tuition.html"><i class="fa fa-arrow-right"></i> View all classes</a>
+                    </div>
+                </div>
+            </div>
             <!-- Countdowns & Quick Stats -->
             <div class="grid-2">
                 <div class="card">
