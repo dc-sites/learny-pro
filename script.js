@@ -28,14 +28,22 @@ selectedTaskDate: new Date().toISOString().split('T')[0],
 
 // ============ TUITION MODULE ============
 tuitionAvatars: [
+     'https://i.postimg.cc/jdRqmRh4/cropped-circle-image-(26).png',
     'https://i.postimg.cc/1XJ2YM8X/cropped-circle-image-(11).png',
     'https://i.postimg.cc/SKxc8VGx/cropped-circle-image-(19).png',
     'https://i.postimg.cc/YC4Zb6MM/cropped-circle-image-(12).png',
     'https://i.postimg.cc/NMtnsZT0/cropped-circle-image-(13).png',
     'https://i.postimg.cc/qqMZnn1p/cropped-circle-image-(14).png',
     'https://i.postimg.cc/NjrC1Qkj/cropped-circle-image-(15).png',
+    'https://i.postimg.cc/dt0WvfnC/cropped-circle-image-(28).png',
     'https://i.postimg.cc/bJLmzrpK/cropped-circle-image-(16).png',
     'https://i.postimg.cc/MHFtQLcV/cropped-circle-image-(17).png',
+'https://i.postimg.cc/2SvNfRb9/cropped-circle-image-(25).png',
+'https://i.postimg.cc/FsYQDJ9Q/cropped-circle-image-(24).png',
+'https://i.postimg.cc/g26mkL5K/cropped-circle-image-(23).png',
+'https://i.postimg.cc/59nxPV8d/cropped-circle-image-(22).png',
+'https://i.postimg.cc/Vk3sjWnS/cropped-circle-image-(20).png',
+'https://i.postimg.cc/QtqXZLP9/cropped-circle-image-(21).png',
     'https://i.postimg.cc/c4vFSdjc/cropped-circle-image-(18).png'
 ],
 
