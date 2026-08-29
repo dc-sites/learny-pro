@@ -10,6 +10,7 @@ avatar: 'https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png',
 gender: '', age: null,
 subtext: "Let's start learning 🎯"
 },
+tuitionClasses: [],
 quotes: [
 { en: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", si: "ඔවුන්ගේ සිහිනවල රූපලාවණ්‍යය විශ්වාස කරන්නන්ට අනාගතය හිමිවේ." },
 { en: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill", si: "සාර්ථකත්වය අවසාන නොවේ, අසාර්ථකත්වය මාරාන්තික නොවේ: ඉදිරියට යාමට ඇති ධෛර්ය වැදගත්ය." },
@@ -251,7 +252,7 @@ updateTuitionLimit() {
     }
 },
     
-    pomo: {
+pomo: {
 timer: null, timeLeft: 0, endTime: 0, isRunning: false, mode: 'work', sessions: 0,
 init() {
 this.loadState(); this.bindUI(); this.updateDisplay(); this.renderSessions();
