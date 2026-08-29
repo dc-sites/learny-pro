@@ -5,12 +5,11 @@ examDate: null, countdowns: [], weeklyGoal: 35, currentTheme: 'purple',
 darkMode: false, streak: 0, lastLogin: null,
 pomoSettings: { work: 25, short: 5, long: 15, longBreakAfter: 4 },
 profile: {
-name: 'User',
+name: 'Use',
 avatar: 'https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png',
 gender: '', age: null,
 subtext: "Let's start learning 🎯"
 },
-
 quotes: [
 { en: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", si: "ඔවුන්ගේ සිහිනවල රූපලාවණ්‍යය විශ්වාස කරන්නන්ට අනාගතය හිමිවේ." },
 { en: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill", si: "සාර්ථකත්වය අවසාන නොවේ, අසාර්ථකත්වය මාරාන්තික නොවේ: ඉදිරියට යාමට ඇති ධෛර්ය වැදගත්ය." },
@@ -25,10 +24,6 @@ quotes: [
 ]
 },
 selectedTaskDate: new Date().toISOString().split('T')[0],
-
-// ============ TUITION MODULE ============
-
-
 pomo: {
 timer: null, timeLeft: 0, endTime: 0, isRunning: false, mode: 'work', sessions: 0,
 init() {
