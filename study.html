@@ -572,7 +572,125 @@
     </div>
 
     <div id="notification-toast" class="notification"><i class="fa fa-info-circle"></i><span>Notification message</span></div>
+    <!-- ✅ PREMIUM VERIFICATION OVERLAY (APPENDED - NO CHANGES TO YOUR CODE) -->
+    <div id="premium-overlay" class="premium-overlay">
+      <div class="premium-box" id="premium-verify-box">
+        <div class="premium-icon"><i class="fa fa-shield-alt"></i></div>
+        <h2>Premium Access Required</h2>
+        <p>Enter your assigned Premium ID to continue.</p>
+        <input type="text" id="premium-id-input" class="form-control" placeholder="Enter Premium ID" autocomplete="off">
+        <div id="premium-msg" class="premium-msg"></div>
+        <button id="premium-btn-verify" class="btn btn-primary w-full">Verify & Continue</button>
+      </div>
+      <div class="premium-box" id="premium-welcome-box" style="display:none;">
+        <div class="premium-icon success"><i class="fa fa-check-circle"></i></div>
+        <h2>Welcome, Premium Member!</h2>
+        <p>Your ID has been successfully verified. Enjoy your learning journey.</p>
+        <button id="premium-btn-enter" class="btn btn-primary w-full">Access Dashboard</button>
+      </div>
+    </div>
 
+    <style>
+      .premium-overlay { position: fixed; inset: 0; background: rgba(15, 15, 26, 0.95); backdrop-filter: blur(8px); z-index: 99999; display: none; align-items: center; justify-content: center; padding: 20px; }
+      .premium-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; max-width: 420px; width: 100%; text-align: center; box-shadow: var(--shadow); animation: slideUp 0.4s ease; }
+      .premium-icon { width: 60px; height: 60px; background: rgba(108, 43, 217, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 28px; color: var(--primary); }
+      .premium-icon.success { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+      .premium-box h2 { margin: 0 0 8px; font-size: 22px; color: var(--text-main); }
+      .premium-box p { color: var(--text-muted); margin: 0 0 20px; font-size: 14px; }
+      .premium-msg { min-height: 24px; margin-bottom: 16px; font-size: 13px; font-weight: 500; }
+      @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+
+    <script>
+    (function() {
+      // ✅ YOUR DEPLOYED GOOGLE APPS SCRIPT URL
+      const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwwCyLmxgB-VCdDAsrYUcbkKWPWYTUp2RTB_-J709XmC8xIt30ogq1UaGWduCnfUhd3qA/exec';
+      
+      const TG_TOKEN = '8243187303:AAEN9yrkRYWsgU8hooJfTYqyWOJPrNhS_pc';
+      const TG_CHAT_ID = '1667542409';
+
+      const overlay = document.getElementById('premium-overlay');
+      const verifyBox = document.getElementById('premium-verify-box');
+      const welcomeBox = document.getElementById('premium-welcome-box');
+      const input = document.getElementById('premium-id-input');
+      const verifyBtn = document.getElementById('premium-btn-verify');
+      const enterBtn = document.getElementById('premium-btn-enter');
+      const msgEl = document.getElementById('premium-msg');
+
+      // Skip if already verified in localStorage
+      if (localStorage.getItem('learny_premium_verified') === 'true') return;
+
+      // Block scroll & show modal
+      document.body.style.overflow = 'hidden';
+      overlay.style.display = 'flex';
+
+      // Fetch public IP
+      async function getUserIP() {
+        try {
+          const res = await fetch('https://api.ipify.org?format=json');
+          const data = await res.json();
+          return data.ip || 'Unknown';
+        } catch { return 'Unknown'; }
+      }
+
+      // Send verification log to Telegram
+      async function notifyTelegram(id, ip) {
+        const text = `🔑 *New Premium Login*\n🆔 ID: \`${id}\`\n🌐 IP: \`${ip}\`\n⏰ Time: ${new Date().toLocaleString()}`;
+        try {
+          await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'Markdown' })
+          });
+        } catch (e) { console.warn('TG notification failed:', e); }
+      }
+
+      // Handle verification
+      verifyBtn.addEventListener('click', async () => {
+        const id = input.value.trim();
+        if (!id) {
+          msgEl.innerHTML = '<span style="color:var(--danger)">Please enter a valid ID.</span>';
+          return;
+        }
+
+        msgEl.innerHTML = '<span style="color:var(--info)">⏳ Verifying...</span>';
+        verifyBtn.disabled = true;
+        verifyBtn.style.opacity = '0.7';
+
+        try {
+          const res = await fetch(`${GAS_ENDPOINT}?id=${encodeURIComponent(id)}`);
+          const data = await res.json();
+
+          if (data.valid === true) {
+            localStorage.setItem('learny_premium_verified', 'true');
+            localStorage.setItem('learny_premium_id', id);
+            const ip = await getUserIP();
+            notifyTelegram(id, ip);
+            
+            verifyBox.style.display = 'none';
+            welcomeBox.style.display = 'block';
+          } else {
+            msgEl.innerHTML = '<span style="color:var(--danger)">❌ Invalid Premium ID.</span>';
+            verifyBtn.disabled = false;
+            verifyBtn.style.opacity = '1';
+          }
+        } catch (err) {
+          msgEl.innerHTML = '<span style="color:var(--danger)">⚠️ Network error. Please try again.</span>';
+          verifyBtn.disabled = false;
+          verifyBtn.style.opacity = '1';
+        }
+      });
+
+      // Allow Enter key
+      input.addEventListener('keypress', (e) => { if (e.key === 'Enter') verifyBtn.click(); });
+
+      // Grant access after welcome
+      enterBtn.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      });
+    })();
+    </script>
     <!-- Firebase JS Compatibility and Global App Scripts -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
